@@ -2,6 +2,7 @@ package com.runone.service.impl;
 
 import com.runone.annotation.EsObject;
 import com.runone.bean.GovernmentNoticeInfo;
+import com.runone.bean.PersonRelation;
 import com.runone.bean.SimpleNewsInfo;
 import com.runone.service.DataLandingService;
 import com.runone.utils.EsHelper;
@@ -44,6 +45,10 @@ public class DataLandingServiceImpl implements DataLandingService {
 
     public boolean indexNoticeInfo(GovernmentNoticeInfo noticeInfo) {
         return this.esHelper.indexDocument(GovernmentNoticeInfo.class, noticeInfo);
+    }
+
+    public boolean indexPersonRelation(PersonRelation relation) {
+        return this.esHelper.indexDocument(PersonRelation.class, relation);
     }
 
     public boolean clearNewInfo() {

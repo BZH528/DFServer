@@ -1,6 +1,7 @@
 package com.runone.service;
 
 import com.runone.bean.GovernmentNoticeInfo;
+import com.runone.bean.PersonRelation;
 import com.runone.bean.SimpleNewsInfo;
 import com.runone.vo.NewsInfoVo;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,8 @@ public interface DataLandingService {
     boolean indexNewsInfo(SimpleNewsInfo newsInfo);
 
     boolean indexNoticeInfo(GovernmentNoticeInfo noticeInfo);
+
+    boolean indexPersonRelation(PersonRelation relation);
 
     boolean clearNewInfo();
 

@@ -42,6 +42,7 @@ public class EsHelper {
     @Autowired
     public RestHighLevelClient client;
 
+
     /**
      * 通过类反射创建索引
      *

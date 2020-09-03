@@ -6,7 +6,7 @@ public class EsFieldType {
 
     public final static String Keyword = "keyword";
 
-    public final static String Long = "text";
+    public final static String Long = "long";
 
     public final static String Date = "date";
 

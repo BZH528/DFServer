@@ -1,6 +1,7 @@
 package com.runone;
 
 import com.runone.annotation.EsObject;
+import com.runone.bean.PersonRelation;
 import com.runone.bean.SimpleNewsInfo;
 import com.runone.utils.EsHelper;
 import com.runone.vo.NewsInfoVo;
@@ -61,6 +62,7 @@ public class TestEs {
         Assert.assertEquals("连接不能为空！", true, client != null);
         this.client = client;
         this.esHelper = new EsHelper();
+        this.esHelper.client = client;
     }
 
     @After

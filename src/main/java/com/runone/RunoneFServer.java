@@ -14,13 +14,6 @@ public class RunoneFServer {
     public static void main(String[] args) {
         SpringApplication.run(RunoneFServer.class, args);
     }
-
-//    @Bean
-//    MultipartConfigElement multipartConfigElement() {
-//        MultipartConfigFactory factory = new MultipartConfigFactory();
-//        factory.setLocation("E:\\javapro\\RunoneFS\\DFServer\\tmp");
-//        return factory.createMultipartConfig();
-//    }
 }
 
 

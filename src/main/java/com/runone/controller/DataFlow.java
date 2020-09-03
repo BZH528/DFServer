@@ -2,6 +2,7 @@ package com.runone.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.runone.bean.GovernmentNoticeInfo;
+import com.runone.bean.PersonRelation;
 import com.runone.bean.SimpleNewsInfo;
 import com.runone.service.DataLandingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,5 +112,39 @@ public class DataFlow {
         return result;
     }
 
+    @RequestMapping(value = "/indexRelation", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<JSONObject> indexRelation(PersonRelation personRelation, @RequestParam("file") MultipartFile file, String suffix) {
+        if (suffix == null) {
+            suffix = "jpg";
+        }
+        JSONObject json = new JSONObject();
+        if (personRelation.getPid() == null) {
+            json.put("status", "500");
+            json.put("msg", "the PersonRelation's file cann't be add to file system!");
+            return new ResponseEntity<JSONObject>(json, HttpStatus.INTERNAL_SERVER_ERROR);//500,系统异常
+        }
+        String url_code = null;
+        if (file != null && file.getSize() > 8) {
+            String filename = UUID.randomUUID().toString().replaceAll("-", "") + "." + suffix;
+            url_code = this.dataLandingService.uploadFileToFdfs(file, filename);
+            if (url_code == null) {
+                json.put("status", "500");
+                json.put("msg", "the PersonRelation's file cann't be add to file system!");
+                return new ResponseEntity<JSONObject>(json, HttpStatus.INTERNAL_SERVER_ERROR);//500,系统异常
+            }
+            personRelation.setLocal_photo_url(url_code);
+        }
+        boolean res = this.dataLandingService.indexPersonRelation(personRelation);
+        if (!res) {
+            json.put("status", "500");
+            json.put("msg", "cann't index the nocticeinfo!");
+            return new ResponseEntity<JSONObject>(json, HttpStatus.INTERNAL_SERVER_ERROR);//500,系统异常
+        }
+        json.put("status", "200");
+        json.put("msg", "success");
+        json.put("local_photo_url", url_code);
+        return new ResponseEntity<JSONObject>(json, HttpStatus.OK);
+    }
 
 }

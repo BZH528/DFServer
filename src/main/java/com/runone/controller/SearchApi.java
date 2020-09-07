@@ -18,7 +18,7 @@ public class SearchApi {
     @Autowired
     private DataLandingService dataLandingService;
 
-    @RequestMapping(value = "/api/search/newsinfo",method = RequestMethod.POST)
+    @RequestMapping(value = "/api/search/newsinfo", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public List<NewsInfoVo> searchNewsInfo(SimpleNewsInfo newsInfo) {
         return this.dataLandingService.searchNewsInfo(newsInfo);

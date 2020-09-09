@@ -24,6 +24,20 @@ public class DataFlow {
     @Autowired
     private DataLandingService dataLandingService;
 
+    /**
+     * 语法：@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””)
+     * value：参数名
+     * required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。
+     * defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值
+     */
+    /**
+     *
+     * @param newsInfo
+     * @param photo 请求路径中必须包含改参数
+     * @param suffix
+     * @param photo_exist
+     * @return
+     */
     @RequestMapping("/indexNewsInfo")
     public ResponseEntity<JSONObject> indexSimpleNew(SimpleNewsInfo newsInfo, @RequestParam("photo") MultipartFile photo, String suffix, String photo_exist) {
         if (suffix == null) {
@@ -49,6 +63,7 @@ public class DataFlow {
             newsInfo.setLocal_photo_url(url_code);
         }
 
+        // 给文档进行索引操作
         boolean res = this.dataLandingService.indexNewsInfo(newsInfo);
         if (!res) {
             json.put("status", "500");

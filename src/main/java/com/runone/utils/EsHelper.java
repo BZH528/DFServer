@@ -204,6 +204,7 @@ public class EsHelper {
     private SearchSourceBuilder decoradeSearchBuilder(SimpleNewsInfo newsInfo) {
 
         HighlightBuilder highlightBuilder = new HighlightBuilder();
+        //如果要多个字段高亮,这项要为false
         highlightBuilder.requireFieldMatch(true);
 
         //不显示匹配标签
@@ -222,7 +223,13 @@ public class EsHelper {
             if (value == null || value.equals("") || value.equals("null")) {
                 continue;
             }
+            // 高亮查询字段
             highlightBuilder.field(next);
+            /**
+             * 这便是matchPhraseQuery和matchQuery等的区别，在使用matchQuery等时，即使你传入的是“小别克老”，在执行查询时，“小别克老”会被分词器分词，
+             * 例如paoding解析成“小别/别克/老”，而使用matchPhraseQuery时，“小别克老”并不会被分词器分词，而是直接以一个短语的形式查询，
+             * 而如果你在创建索引所使用的field的value中没有这么一个短语（顺序无差，且连接在一起），那么将查询不出任何结果
+             */
             searchSourceBuilder.query(QueryBuilders.matchPhraseQuery(next, value));
         }
 
@@ -241,8 +248,10 @@ public class EsHelper {
         SearchSourceBuilder searchSourceBuilder = this.decoradeSearchBuilder(newsInfo);
 
         SearchRequest searchRequest = new SearchRequest();
+        // 设置查询指定的索引和类型
         searchRequest.indices(indexName);
         searchRequest.types(type);
+        // 向主搜索请求中可以添加搜索内容的特征参数
         searchRequest.source(searchSourceBuilder);
         SearchResponse search = null;
         try {

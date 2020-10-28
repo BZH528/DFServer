@@ -58,7 +58,7 @@ public class TestEs {
 
     @Before
     public void setUp() {
-        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("192.168.1.213", 9200, "http")));
+        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("192.168.1.221", 9200, "http")));
         Assert.assertEquals("连接不能为空！", true, client != null);
         this.client = client;
         this.esHelper = new EsHelper();

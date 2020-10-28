@@ -21,17 +21,17 @@ public class TestDFS {
 
     @Test
     public void testUpload() {
-        String path = this.getClass().getClassLoader().getResource("static/imgs/dog.jpg").getPath();
+        String path = this.getClass().getClassLoader().getResource("static/imgs/bird.jpg").getPath();
         System.out.println("path:\t" + path);
         File file = new File(path);
-        String res = fdfsHelper.uploadFile(file, "dog.jpg", new HashMap<String, String>());
+        String res = fdfsHelper.uploadFile(file, "bird.jpg", new HashMap<String, String>());
         //group0/M00/00/00/wKgBtV8hS4-AbFofAACAIcNN37o228.jpg
         System.out.println(res);
     }
 
     @Test
     public void testDownLoad() {
-        fdfsHelper.downloadFile("group0/M00/00/0A/wKgBtV88-kiAMVBHAACAIcNN37o311.jpg", new File("data/dog.jpg"));
+        fdfsHelper.downloadFile("group0/M00/00/0A/wKgBtV88-kiAMVBHAACAIcNN37o311.jpg", new File("data/dog123.jpg"));
     }
 
     @Test

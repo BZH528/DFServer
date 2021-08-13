@@ -1,0 +1,98 @@
+
+以下是主要文件服务接口，访问时：IP+端口+地址
+
+1.创建新闻信息索引
+
+	接口地址：/indexNewsInfo
+	请求方式：post
+	接口参数：
+		url
+		title
+		urlhash
+		publish_time
+		summary
+		fingerprint
+		page_from
+		label
+		label_id
+		content
+		photo_url
+		
+	返回值：
+		status:状态码
+		msg:处理信息
+
+		
+2.创建政府公告信息索引
+
+	接口地址：/indexNoticesInfo
+	请求方式：post
+	接口参数:
+		organization
+		noticeType
+		publishDate
+		tosendPeople
+		noticeCode
+		noticeCodeEnc
+		label
+		from_url
+		file_url
+		noticeContent
+		
+		file: 二进制文件流
+		file_exist 是否保存文件
+		suffix	文件后缀，默认是pdf
+		
+	返回值:
+		status: 状态码
+		msg: 处理信息
+
+
+3.创建任务关系信息索引
+
+	接口地址：/indexRelation
+	请求方式：post
+	接口参数:
+		pid
+		name
+		disambiguation
+		from_photo_url
+		relations
+		
+		file: 二进制文件流
+		suffix： 文件后缀，默认jpg
+		
+	返回值:
+		status: 状态码
+		msg: 处理信息
+		local_photo_url: 本地存储图片文件的地址（这是相对地址，加上FastDFS地址，如192.168.1.181:9100/group0/M00/00/0D/wKgBtV9JJM6AJ-fjAACEMCV0SW444.jpeg）
+
+		
+4. 查询新闻类信息
+
+	接口地址：/api/search/newsinfo
+	请求方式：POST,GET
+	请求参数：
+			title|summary|content|label_id|label
+			
+	返回值：
+		title
+        summary
+        publish_time
+        urlhash
+        url
+        photo_url
+        local_photo_url
+        match_Sentence
+		
+5. 清空所有新闻消息
+	
+	接口地址：/api/topic/clearNewInfo
+	请求方式：POST,GET
+	请求参数：无
+	
+	返回值:
+		status: 状态码
+		msg: 处理信息
+	
+	
